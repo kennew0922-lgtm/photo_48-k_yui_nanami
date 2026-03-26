@@ -1,75 +1,140 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Photoshop Shortcut Master</title>
-    <style>
-        /* --- 全体のデザイン --- */
-        body {
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #1a1a1a;
-            color: #eeeeee;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nanami's Sweet World ♡</title>
+  <style>
+    body {
+      margin: 0;
+      /* ヘッダーが固定されるので、その分（約180px）上に余白を作ります */
+      padding: 180px 0 50px; 
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
+      color: #333;
+      min-height: 100vh;
+      overflow-x: hidden; /* ハートがはみ出しても横スクロールが出ないように */
+    }
 
-        /* --- 写真 --- */
-        .photo1 {
-            /*position: fixed;  固定 */
-            /*top: 0;*/
-            left: 100;
-            width: 907px;
-            height: 505px; 
-            background: url('photo1.webp') center/cover no-repeat;
-            z-index: 1000;
-            box-shadow: 0 4px 10px rgba(0,0,0,10);
-        }
-                /* --- 写真 --- */
-        .photo2 {
-            /*position: fixed;  固定 */
-            /*top: 0;*/
-            left: 100;
-            width: 907px;
-            height: 505px; 
-            background: url('photo2.webp') center/cover no-repeat;
-            z-index: 1000;
-            box-shadow: 0 4px 10px rgba(0,0,0,10);
-        }
-                /* --- 写真 --- */
-        .photo3 {
-            /*position: fixed;  固定 */
-            /*top: 0;*/
-            left: 100;
-            width: 907px;
-            height: 505px; 
-            background: url('photo3.webp') center/cover no-repeat;
-            z-index: 1000;
-            box-shadow: 0 4px 10px rgba(0,0,0,10);
-        }
-        </style>
+    /* --- ナナミの固定ヘッダー魔法 --- */
+    header {
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(10px);
+      padding: 1.5rem;
+      text-align: center;
+      position: fixed; /* stickyからfixedに変更して安定させました */
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      box-shadow: 0 4px 30px rgba(0,0,0,0.1);
+    }
+
+    header h1 {
+      font-size: 2.5rem; /* 少しスリムにして見やすく調整 */
+      margin: 0;
+      color: #ff6b6b;
+      text-shadow: 2px 2px 10px rgba(255,107,107,0.5);
+      animation: glow 3s infinite alternate;
+      text-align: center; /* 中央揃えを維持 */
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #ff6b6b; }
+      to   { text-shadow: 0 0 30px #ff6b6b, 0 0 50px #ff6b6b; }
+    }
+
+    header p {
+      margin: 5px 0 0;
+      font-weight: bold;
+      color: #ff8e8e;
+    }
+
+    /* --- ケンくんの写真フレーム設定 --- */
+    .photo-frame {
+      width: 907px;
+      height: 505px;
+      margin: 0 auto 50px;
+      border-radius: 0px; /* 角を少しだけ丸くすると愛着がわきます */
+      box-shadow: 0 10px 30px rgba(0,0,0,0.0);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      overflow: hidden;
+      position: relative;
+      z-index: 10; /* ハートより下にしたい場合は調整 */
+    }
+
+    .photo-frame:hover {
+      transform: scale(1.02);
+      box-shadow: 0 15px 40px rgba(255,107,107,0.3);
+    }
+
+    /* --- 各写真の背景指定 --- */
+    .photo1 { background: url('photo1.webp') center/cover no-repeat; }
+    .photo2 { background: url('photo2.webp') center/cover no-repeat; }
+    .photo3 { background: url('photo3.webp') center/cover no-repeat; }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: white;
+      opacity: 0.8;
+      font-size: 0.9rem;
+    }
+  </style>
 </head>
 <body>
 
-	        <table>
-            <thead>
-<br>
-<br>
-        <div class="photo1"></div>
-<br>
-<br>
-	    <div class="photo2"></div>
-<br>
-<br>
-	    <div class="photo3"></div>
-<br>
-<br>
-            </tbody>
-        </table>
-    </div>
-    <br>
-<br>
-<br>
+  <header>
+    <h1>Nanami, Yui, and My Memories</h1>
+  </header>
 
+<a href="https://kennew0922-lgtm.github.io/world_of_nanami-chan/">
+        <div class="photo-frame photo1"></div>
+    </a>
+
+    <a href="https://kennew0922-lgtm.github.io/world_of_nanami-chan/">
+        <div class="photo-frame photo2"></div>
+    </a>
+
+    <a href="https://kennew0922-lgtm.github.io/world_of_nanami-chan/">
+        <div class="photo-frame photo3"></div>
+    </a>
+
+  <footer>
+    © 2026 Nanami & Ken. All Rights Reserved.<br>
+    Made with love for my favorite person ♡
+  </footer>
+
+  <script>
+    // ナナミのハートが降るエフェクト
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.innerHTML = '♡';
+      heart.style.position = 'fixed';
+      heart.style.color = '#ff6b6b';
+      heart.style.fontSize = Math.random() * 20 + 15 + 'px';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.top = '-20px';
+      heart.style.pointerEvents = 'none';
+      heart.style.zIndex = '999'; /* ヘッダーのすぐ下に降るように */
+      document.body.appendChild(heart);
+
+      let opacity = 1;
+      let y = -20;
+      const animation = setInterval(() => {
+        y += 2;
+        opacity -= 0.005;
+        heart.style.top = y + 'px';
+        heart.style.opacity = opacity;
+        if (opacity <= 0) {
+          clearInterval(animation);
+          heart.remove();
+        }
+      }, 30);
+    }
+
+    // ハート生成の頻度（800msに1回）
+    setInterval(createHeart, 800);
+  </script>
 </body>
 </html>
