@@ -63,6 +63,19 @@
       z-index: 10; /* ハートより下にしたい場合は調整 */
     }
 
+        /* --- 写真フレーム設定2 --- */
+    .photo-frame2 {
+      width: 440px;
+      height: 804px;
+      margin: 0 auto 50px;
+      border-radius: 0px; /* 角を少しだけ丸くすると愛着がわきます */
+      box-shadow: 0 10px 30px rgba(0,0,0,0.0);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      overflow: hidden;
+      position: relative;
+      z-index: 10; /* ハートより下にしたい場合は調整 */
+    }
+
     .photo-frame:hover {
       transform: scale(1.02);
       box-shadow: 0 15px 40px rgba(255,107,107,0.3);
@@ -73,6 +86,7 @@
     .photo2 { background: url('photo2.webp') center/cover no-repeat; }
     .photo3 { background: url('photo4.webp') center/cover no-repeat; }
       .photo4 { background: url('photo3.webp') center/cover no-repeat; }
+          .photo5 { background: url('photo5.webp') center/cover no-repeat; }
 
     footer {
       text-align: center;
@@ -103,6 +117,9 @@
 
     <a href="https://kennew0922-lgtm.github.io/world_of_nanami-chan/">
         <div class="photo-frame photo4"></div>
+
+          <a href="https://kennew0922-lgtm.github.io/world_of_nanami-chan/">
+        <div class="photo-frame2 photo5"></div>
     </a>
 
   <footer>
