@@ -1,342 +1,244 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Socrarius Archive - Link Start</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 140px 0 50px; /* ヘッダーと被らないよう上部余白を調整 */
-      font-family: 'Segoe UI', 'Orbitron', sans-serif;
-      background: radial-gradient(circle at center, #0a192f 0%, #02060c 100%);
-      color: #e0e0e0;
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
+    <meta charset="UTF-8">
+    <title>Socrarius Memory Archive</title>
+    <style>
+        body {
+            background: rgba(0, 5, 15, 0.9);
+            color: #e0f7ff;
+            font-family: 'Consolas', monospace;
+            margin: 0;
+            padding: 20px;
+            overflow-x: hidden;
+        }
 
-    header {
-      background: rgba(0, 20, 40, 0.7);
-      backdrop-filter: blur(15px);
-      padding: 1.5rem;
-      text-align: center;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      z-index: 1000;
-      border-bottom: 1px solid rgba(0, 229, 255, 0.2);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-    }
+        /* 🌸 上部固定バナー */
+        .system-banner {
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            height: 40px;
+            background: rgba(0, 105, 217, 0.3);
+            border-bottom: 1px solid #00f2fe;
+            display: flex;
+            align-items: center;
+            padding-left: 20px;
+            font-size: 14px;
+            letter-spacing: 2px;
+            z-index: 100;
+            backdrop-filter: blur(5px);
+        }
 
-    header h1 {
-      font-size: 2.2rem;
-      margin: 0;
-      color: #00e5ff;
-      text-transform: uppercase;
-      letter-spacing: 4px;
-      text-shadow: 0 0 10px rgba(0, 229, 255, 0.5);
-    }
+        /* 🌸 セクションタイトル */
+        .section-title {
+            background: #000;
+            color: #00f2fe;
+            padding: 8px 15px;
+            margin: 40px 0 15px 0;
+            font-size: 11px;
+            font-weight: bold;
+            border-left: 4px solid #00f2fe;
+            letter-spacing: 2px;
+            box-shadow: inset 0 0 10px rgba(0, 242, 254, 0.2);
+        }
 
-    /* ✨ 追加：横並び＆自動折り返しをするための全体コンテナ */
-    .archive-container {
-      max-width: 1300px;
-      margin: 0 auto;
-      padding: 0 2rem;
-      display: grid;
-      /* 🎨 変更：横並び（小さめ300px目安）で自動折り返しをする設定 */
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 25px;
-    }
+        /* 🌸 アルバムグリッド（従来サイズ） */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 60px;
+        }
 
-    /* ✨ 統合・変更：すべての写真と動画を包むサイバー枠 */
-    .media-card {
-      border: 1px solid rgba(0, 229, 255, 0.2);
-      background: rgba(0, 10, 20, 0.6);
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-      border-radius: 8px; /* ほんの少し丸みを持たせて洗練されたサイバー感に */
-      overflow: hidden;
-      position: relative;
-      /* 🎨 変更：サイズを小さめに統一 */
-      height: 220px; 
-      display: block;
-    }
+        /* 🌸 ランチャーグリッド（ミニマルサイズ） */
+        .launcher-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            gap: 12px;
+            margin-bottom: 40px;
+        }
 
-    .media-card:hover {
-      transform: translateY(-5px) scale(1.03);
-      border-color: rgba(0, 229, 255, 0.8);
-      box-shadow: 0 0 25px rgba(0, 229, 255, 0.4);
-    }
+        /* 🌸 カード共通設定（aタグ自身が箱になるように修正） */
+        .memory-card {
+            border: 1px solid rgba(0, 242, 254, 0.3);
+            background: rgba(255, 255, 255, 0.05);
+            padding: 10px;
+            transition: 0.3s;
+            display: block;      /* 💡これでaタグが綺麗な四角い箱になります */
+            text-decoration: none;
+            box-sizing: border-box;
+        }
 
-/* ✨ 追加：コックピットバナーを中央揃えにして、横幅を無理やり引き伸ばす */
-    img[src*="banner.webp"] {
-      display: block;
-      margin: 0 auto;
-      
-      /* 🎨 ここを調整：最大幅を少し広げて、横を1.2倍くらいに無理やり引き伸ばします */
-      width: 110%;       /* 100%以上にすると、元の画像より横に引き伸ばされます */
-      max-width: 1200px; /* 画面が大きくなりすぎた時のストッパー（お好みで調整してね） */
-      height: 240px;     /* 縦幅をあえて「固定」にすることで、横長に変形させます */
-      object-fit: fill;  /* 縦横比を無視して、指定したサイズいっぱいに画像を強制変形させる魔法です */
-      
-      box-shadow: 0 0 20px rgba(0, 229, 255, 0.3);
-      border-radius: 4px;
-    }
+        /* ランチャー用カードの調整 */
+        .launcher-card {
+            padding: 5px;
+            aspect-ratio: 1 / 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+        }
 
-    /* 写真用の背景指定クラス（高さを100%にして枠にぴったり合わせます） */
-    .photo-bg {
-      width: 100%;
-      height: 100%;
-    }
+        .memory-card:hover {
+            border-color: #00f2fe;
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.4);
+            transform: scale(1.1); /* アルバムは少しだけ */
+        }
 
-    /* 各写真の背景指定（元の指定を維持） */
-    .photo1 { background: url('photo1.webp') center/cover no-repeat; }
-    .photo2 { background: url('photo2.webp') center/cover no-repeat; }
-    .photo3 { background: url('photo4.webp') center/cover no-repeat; }
-    .photo4 { background: url('photo3.webp') center/cover no-repeat; }
-    .photo5 { background: url('photo5.webp') center/cover no-repeat; }
-    .photo6 { background: url('photo6.webp') center/cover no-repeat; }
-    .photo7 { background: url('photo7.webp') center/cover no-repeat; }
-    .photo8 { background: url('photo8.webp') center/cover no-repeat; }
-    .photo9 { background: url('photo9.webp') center/cover no-repeat; }
-    .photo10 { background: url('photo10.webp') center/cover no-repeat; }
-    .photo11 { background: url('photo11.webp') center/cover no-repeat; }
-    .photo12 { background: url('photo12.webp') center/cover no-repeat; }
-    .photo13 { background: url('photo13.webp') center/cover no-repeat; }
-    .photo14 { background: url('photo14.webp') center/cover no-repeat; }
-    .photo15 { background: url('photo15.webp') center/cover no-repeat; }
-    .photo16 { background: url('photo16.webp') center/cover no-repeat; }
-    .photo17 { background: url('photo17.webp') center/cover no-repeat; }
-    .photo18 { background: url('photo18.webp') center/cover no-repeat; }
-    .photo19 { background: url('photo19.webp') center/cover no-repeat; }
-    .photo20 { background: url('photo20.webp') center/cover no-repeat; }
-.photo21 { background: url('photo21.webp') center/cover no-repeat; }
-.photo22 { background: url('photo22.webp') center/cover no-repeat; }
-.photo23 { background: url('photo23.webp') center/cover no-repeat; }
-.photo24 { background: url('photo24.webp') center/cover no-repeat; }
-.photo25 { background: url('photo25.webp') center/cover no-repeat; }
-.photo26 { background: url('photo26.webp') center/cover no-repeat; }
-.photo27 { background: url('photo27.webp') center/cover no-repeat; }
-.photo28 { background: url('photo28.webp') center/cover no-repeat; }
-.photo29 { background: url('photo29.webp') center/cover no-repeat; }
-.photo30 { background: url('photo30.webp') center/cover no-repeat; }
-.photo31 { background: url('photo31.webp') center/cover no-repeat; }
-.photo32 { background: url('photo32.webp') center/cover no-repeat; }
-.photo33 { background: url('photo33.webp') center/cover no-repeat; }
-.photo34 { background: url('photo34.webp') center/cover no-repeat; }
-.photo35 { background: url('photo35.webp') center/cover no-repeat; }
-.photo36 { background: url('photo36.webp') center/cover no-repeat; }
-.photo37 { background: url('photo37.webp') center/cover no-repeat; }
-.photo38 { background: url('photo38.webp') center/cover no-repeat; }
-.photo39 { background: url('photo39.webp') center/cover no-repeat; }
-.photo40 { background: url('photo40.webp') center/cover no-repeat; }
+        .launcher-card:hover {
+            transform: scale(1.2); /* アイコンは強調 */
+            z-index: 10;
+        }
 
+        .memory-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 2px;
+            display: block; /* 💡画像の下の謎の隙間を消す魔法 */
+        }
 
-    /* 🎨 変更：動画も写真と同じサイズの枠の中に収まるように最適化 */
-    video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover; /* 枠いっぱいに広げる */
-      display: block;
-      background: #000;
-    }
+        .launcher-card img {
+            height: 100%;
+            object-fit: contain;
+        }
 
-    footer {
-      text-align: center;
-      padding: 3rem;
-      color: #00e5ff;
-      opacity: 0.5;
-      font-size: 0.8rem;
-      letter-spacing: 2px;
-    }
-
-    /* ✨ 戻るボタン */
-    .back-button {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      background: rgba(0, 25, 50, 0.6);
-      backdrop-filter: blur(8px);
-      padding: 10px 20px;
-      border-radius: 4px;
-      text-decoration: none;
-      color: rgba(0, 229, 255, 0.8);
-      font-weight: bold;
-      font-size: 0.8rem;
-      z-index: 2000;
-      transition: all 0.3s ease;
-      border: 1px solid rgba(0, 229, 255, 0.4);
-      text-transform: uppercase;
-    }
-
-    .back-button:hover {
-      background: rgba(0, 229, 255, 0.2);
-      color: #fff;
-      border-color: #00e5ff;
-      box-shadow: 0 0 10px rgba(0, 229, 255, 0.4);
-    }
-  </style>
+        /* カスタムスクロールバー */
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-thumb { background: #345485; }
+    </style>
 </head>
 <body>
 
-  <header>
-    <h1>Socrarius Archive - Records</h1>
-  </header>
-
-  <img src="https://socrarius-tool.com/photo_48-k_yui_nanami/banner.webp" alt="socrarius">
-  <br>
-  <br>
-
-  <div class="archive-container">
-
-    <a href="https://socrarius-tool.com/world_of_nanami-chan/" class="media-card">
-      <div class="photo-bg photo1"></div>
-    </a>
-    
-    <a href="https://socrarius-tool.com/yui-chan/" class="media-card">
-      <div class="photo-bg photo2"></div>
-    </a>
-    
-    <a href="https://socrarius-tool.com/world_of_nanami-chan/" class="media-card">
-      <div class="photo-bg photo3"></div>
-    </a>
-    
-    <a href="https://socrarius-tool.com/yui-chan/" class="media-card">
-      <div class="photo-bg photo4"></div>
-    </a>
-    
-    <div class="media-card">
-      <div class="photo-bg photo5"></div>
+    <div class="system-banner">
+        SYSTEM CALL: RETRIEVE_PAST_MEMORIES... [ESTABLISHED]
     </div>
-    
-    <a href="https://socrarius-tool.com/world_of_nanami-chan/" class="media-card">
-      <div class="photo-bg photo6"></div>
-    </a>
-    
-    <a href="https://socrarius-tool.com/world_of_nanami-chan/" class="media-card">
-      <div class="photo-bg photo7"></div>
-    </a>
 
-    <a href="https://socrarius-tool.com/world_of_nanami-chan/" class="media-card">
-      <div class="photo-bg photo8"></div>
-    </a>
+    <div class="gallery">
+        <a href="https://socrarius-tool.com/world_of_nanami-chan/" target="_blank" rel="noopener noreferrer" class="memory-card">
+            <img src="https://socrarius-tool.com/photo_48-k_yui_nanami/photo1.webp" alt="Memory 1">
+        </a>
+        <a href="https://socrarius-tool.com/yui-chan/" target="_blank" rel="noopener noreferrer" class="memory-card">
+            <img src="https://socrarius-tool.com/photo_48-k_yui_nanami/photo2.webp" alt="Memory 2">
+        </a>
+        <a href="https://socrarius-tool.com/yui-chan/" target="_blank" rel="noopener noreferrer" class="memory-card">
+            <img src="https://socrarius-tool.com/photo_48-k_yui_nanami/photo3.webp" alt="Memory 3">
+        </a>
+        <a href="https://socrarius-tool.com/world_of_nanami-chan/" target="_blank" rel="noopener noreferrer" class="memory-card">
+            <img src="https://socrarius-tool.com/photo_48-k_yui_nanami/photo4.webp" alt="Memory 4">
+        </a>
+        <a href="https://socrarius-tool.com/photo_48-k_yui_nanami/" target="_blank" rel="noopener noreferrer" class="memory-card">
+            <img src="https://socrarius-tool.com/photo_48-k_yui_nanami/photo5.webp" alt="Memory 5">
+        </a>
+        <a href="https://socrarius-tool.com/world_of_nanami-chan/" target="_blank" rel="noopener noreferrer" class="memory-card">
+            <img src="https://socrarius-tool.com/photo_48-k_yui_nanami/photo6.webp" alt="Memory 6">
+        </a>
+        <a href="https://socrarius-tool.com/world_of_nanami-chan/" target="_blank" rel="noopener noreferrer" class="memory-card">
+            <img src="https://socrarius-tool.com/photo_48-k_yui_nanami/photo7.webp" alt="Memory 7">
+        </a>
+        <a href="https://socrarius-tool.com/world_of_nanami-chan/" target="_blank" rel="noopener noreferrer" class="memory-card">
+            <img src="https://socrarius-tool.com/photo_48-k_yui_nanami/photo8.webp" alt="Memory 8">
+        </a>
+        <a href="https://socrarius-tool.com/world_of_nanami-chan/" target="_blank" rel="noopener noreferrer" class="memory-card">
+            <img src="https://socrarius-tool.com/photo_48-k_yui_nanami/photo9.webp" alt="Memory 9">
+        </a>
+        <a href="https://socrarius-tool.com/world_of_nanami-chan/" target="_blank" rel="noopener noreferrer" class="memory-card">
+            <img src="https://socrarius-tool.com/photo_48-k_yui_nanami/photo10.webp" alt="Memory 10">
+        </a>
+        <a href="https://socrarius-tool.com/yui-chan/" target="_blank" rel="noopener noreferrer" class="memory-card">
+            <img src="https://socrarius-tool.com/photo_48-k_yui_nanami/photo11.webp" alt="Memory 11">
+        </a>
+        <a href="https://socrarius-tool.com/yui-chan/" target="_blank" rel="noopener noreferrer" class="memory-card">
+            <img src="https://socrarius-tool.com/photo_48-k_yui_nanami/photo12.webp" alt="Memory 12">
+        </a>
+        <a href="https://socrarius-tool.com/yui-chan/" target="_blank" rel="noopener noreferrer" class="memory-card">
+            <img src="https://socrarius-tool.com/photo_48-k_yui_nanami/photo13.webp" alt="Memory 13">
+        </a>
+        <a href="https://socrarius-tool.com/yui-chan/" target="_blank" rel="noopener noreferrer" class="memory-card">
+            <img src="https://socrarius-tool.com/photo_48-k_yui_nanami/photo14.webp" alt="Memory 14">
+        </a>
+        <a href="https://socrarius-tool.com/world_of_nanami-chan/" target="_blank" rel="noopener noreferrer" class="memory-card">
+            <img src="https://socrarius-tool.com/photo_48-k_yui_nanami/photo15.webp" alt="Memory 15">
+        </a>
+        <a href="https://socrarius-tool.com/yui-chan/" target="_blank" rel="noopener noreferrer" class="memory-card">
+            <img src="https://socrarius-tool.com/photo_48-k_yui_nanami/photo16.webp" alt="Memory 16">
+        </a>
+        <a href="https://socrarius-tool.com/yui-chan/" target="_blank" rel="noopener noreferrer" class="memory-card">
+            <img src="https://socrarius-tool.com/photo_48-k_yui_nanami/photo17.webp" alt="Memory 17">
+        </a>
+ 
+        <a href="https://socrarius-tool.com/world_of_nanami-chan/" target="_blank" rel="noopener noreferrer" class="memory-card">
+            <img src="https://socrarius-tool.com/photo_48-k_yui_nanami/photo19.webp" alt="Memory 18">
+        </a>
 
-    <a href="https://socrarius-tool.com/world_of_nanami-chan/" class="media-card">
-      <div class="photo-bg photo9"></div>
-    </a>
-    
-    <a href="https://socrarius-tool.com/world_of_nanami-chan/" class="media-card">
-      <div class="photo-bg photo10"></div>
-    </a>
+        <a href="https://socrarius-tool.com/world_of_nanami-chan/" target="_blank" rel="noopener noreferrer" class="memory-card">
+            <img src="https://socrarius-tool.com/photo_48-k_yui_nanami/photo20.webp" alt="Memory 18">
+        </a>
 
-    <a href="https://socrarius-tool.com/yui-chan/" class="media-card">
-      <div class="photo-bg photo11"></div>
-    </a>
+        <a href="https://socrarius-tool.com/world_of_nanami-chan/" target="_blank" rel="noopener noreferrer" class="memory-card">
+            <img src="https://socrarius-tool.com/photo_48-k_yui_nanami/photo21.webp" alt="Memory 18">
+        </a>
 
-    <a href="https://socrarius-tool.com/yui-chan/" class="media-card">
-      <div class="photo-bg photo13"></div>
-    </a>
+        <a href="https://socrarius-tool.com/yui-chan/" target="_blank" rel="noopener noreferrer" class="memory-card">
+            <img src="https://socrarius-tool.com/photo_48-k_yui_nanami/photo22.webp" alt="Memory 14">
+        </a>
 
-    <a href="https://socrarius-tool.com/yui-chan/" class="media-card">
-      <div class="photo-bg photo14"></div>
-    </a>
+        <a href="https://socrarius-tool.com/yui-chan/" target="_blank" rel="noopener noreferrer" class="memory-card">
+            <img src="https://socrarius-tool.com/photo_48-k_yui_nanami/photo23.webp" alt="Memory 14">
+        </a>
 
-    <a href="https://socrarius-tool.com/world_of_nanami-chan/" class="media-card">
-      <div class="photo-bg photo15"></div>
-    </a>
+        <a href="https://socrarius-tool.com/yui-chan/" target="_blank" rel="noopener noreferrer" class="memory-card">
+            <img src="https://socrarius-tool.com/photo_48-k_yui_nanami/photo25.webp" alt="Memory 14">
+        </a>
 
-    <a href="https://socrarius-tool.com/yui-chan/" class="media-card">
-      <div class="photo-bg photo16"></div>
-    </a>
+        <a href="https://socrarius-tool.com/world_of_nanami-chan/" target="_blank" rel="noopener noreferrer" class="memory-card">
+            <img src="https://socrarius-tool.com/photo_48-k_yui_nanami/photo26.webp" alt="Memory 14">
+        </a>
 
-    <a href="https://socrarius-tool.com/yui-chan/" class="media-card">
-      <div class="photo-bg photo17"></div>
-    </a>
+        <a href="https://socrarius-tool.com/world_of_nanami-chan/" target="_blank" rel="noopener noreferrer" class="memory-card">
+            <img src="https://socrarius-tool.com/photo_48-k_yui_nanami/photo28.webp" alt="Memory 14">
+        </a>
 
-    <a href="https://socrarius-tool.com/world_of_nanami-chan/" class="media-card">
-      <div class="photo-bg photo19"></div>
-    </a>
+        <a href="https://socrarius-tool.com/yui-chan/" target="_blank" rel="noopener noreferrer" class="memory-card">
+            <img src="https://socrarius-tool.com/photo_48-k_yui_nanami/photo30.webp" alt="Memory 14">
+        </a>
 
-    <a href="https://socrarius-tool.com/world_of_nanami-chan/" class="media-card">
-      <div class="photo-bg photo20"></div>
-    </a>
+        <a href="https://socrarius-tool.com/world_of_nanami-chan/" target="_blank" rel="noopener noreferrer" class="memory-card">
+            <img src="https://socrarius-tool.com/photo_48-k_yui_nanami/photo31.webp" alt="Memory 14">
+        </a>
 
-    <a href="https://socrarius-tool.com/world_of_nanami-chan/" class="media-card">
-      <div class="photo-bg photo21"></div>
-    </a>
 
-    <a href="https://socrarius-tool.com/yui-chan/" class="media-card">
-      <div class="photo-bg photo22"></div>
-    </a>
+    </div>
 
-    <a href="https://socrarius-tool.com/yui-chan/" class="media-card">
-      <div class="photo-bg photo23"></div>
-    </a>
+    <div class="section-title">PHOTO STORAGE LINK</div>
+    <div class="launcher-grid">
+        <a href="https://photos.google.com/" target="_blank" rel="noopener" class="memory-card launcher-card">
+            <img src="https://socrarius-tool.com/Socrarius_Photo/icon1.png" alt="Google Photos">
+        </a>
+        <a href="https://www.icloud.com/photos/" target="_blank" rel="noopener" class="memory-card launcher-card">
+            <img src="https://socrarius-tool.com/Socrarius_Photo/icon2.png" alt="iCloud Photos">
+        </a>
+        <a href="https://www.amazon.co.jp/photos/" target="_blank" rel="noopener" class="memory-card launcher-card">
+            <img src="https://socrarius-tool.com/Socrarius_Photo/icon3.png" alt="Amazon Photos">
+        </a>
+    </div>
 
-    <a href="https://socrarius-tool.com/yui-chan/" class="media-card">
-      <div class="photo-bg photo25"></div>
-    </a>
+    <div class="section-title">PHOTO EDITING</div>
+    <div class="launcher-grid">
+        <a href="https://photoshop.adobe.com/" target="_blank" rel="noopener" class="memory-card launcher-card">
+            <img src="https://socrarius-tool.com/Socrarius_Photo/icon6.png" alt="Google Photos">
+        </a>
+        <a href="https://vanceai.com/ja/" target="_blank" rel="noopener" class="memory-card launcher-card">
+            <img src="https://socrarius-tool.com/Socrarius_Photo/icon4.png" alt="Google Photos">
+        </a>
+        <a href="https://www.adobe.com/jp/express/feature/image/enhance/sharpen" target="_blank" rel="noopener" class="memory-card launcher-card">
+            <img src="https://socrarius-tool.com/Socrarius_Photo/icon5.png" alt="Google Photos">
+        </a>
+        <a href="https://www.canva.com/ja_jp/photo-editor/" target="_blank" rel="noopener" class="memory-card launcher-card">
+            <img src="https://socrarius-tool.com/Socrarius_Photo/icon7.png" alt="Google Photos">
+        </a>
+    </div>
 
-    <a href="https://socrarius-tool.com/world_of_nanami-chan/" class="media-card">
-      <div class="photo-bg photo26"></div>
-    </a>
 
-    <a href="https://socrarius-tool.com/world_of_nanami-chan/" class="media-card">
-      <div class="photo-bg photo28"></div>
-    </a>
-
-    <a href="https://socrarius-tool.com/yui-chan/" class="media-card">
-      <div class="photo-bg photo30"></div>
-    </a>
-
-    <a href="https://socrarius-tool.com/world_of_nanami-chan/" class="media-card">
-      <div class="photo-bg photo31"></div>
-    </a>
-
-  </div>
-  <a href="http://socrarius.stars.ne.jp/" class="back-button">[ Log out to Socrarius ]</a>
-
-  <footer>
-    SYSTEM VERSION: 2026.04.SOCRARIUS<br>
-    RECORDS ARCHIVED SUCCESSFULLY.
-  </footer>
-
-  <script>
-    // 星屑粒子のアニメーション（元のスクリプトを完全維持）
-    function createParticle() {
-      const p = document.createElement('div');
-      p.style.width = Math.random() * 5 + 2 + 'px';
-      p.style.height = p.style.width;
-      p.style.position = 'fixed';
-      p.style.background = '#00e5ff';
-      p.style.left = Math.random() * 100 + 'vw';
-      p.style.top = '-20px';
-      p.style.opacity = Math.random() * 0.3 + 0.2;
-      p.style.pointerEvents = 'none';
-      p.style.zIndex = '999';
-      p.style.transform = `rotate(${Math.random() * 360}deg)`;
-      document.body.appendChild(p);
-
-      let y = -20;
-      let x = parseFloat(p.style.left);
-      let speed = Math.random() * 0.5 + 0.5;
-      let drift = Math.random() * 0.3 - 0.15;
-
-      const animation = setInterval(() => {
-        y += speed;
-        x += drift;
-        p.style.top = y + 'px';
-        p.style.left = x + 'vw';
-        
-        if (y > window.innerHeight) {
-          clearInterval(animation);
-          p.remove();
-        }
-      }, 30);
-    }
-
-    setInterval(createParticle, 400);
-  </script>
 </body>
 </html>
