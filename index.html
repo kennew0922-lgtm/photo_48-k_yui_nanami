@@ -7,7 +7,7 @@
   <style>
     body {
       margin: 0;
-      padding: 180px 0 50px; 
+      padding: 140px 0 50px; /* ヘッダーと被らないよう上部余白を調整 */
       font-family: 'Segoe UI', 'Orbitron', sans-serif;
       background: radial-gradient(circle at center, #0a192f 0%, #02060c 100%);
       color: #e0e0e0;
@@ -38,28 +38,59 @@
       text-shadow: 0 0 10px rgba(0, 229, 255, 0.5);
     }
 
-    .photo-frame, .photo-frame2, .photo-frame3 {
-      margin: 0 auto 50px;
-      border: 1px solid rgba(0, 229, 255, 0.15);
-      background: rgba(0, 0, 0, 0.5);
+    /* ✨ 追加：横並び＆自動折り返しをするための全体コンテナ */
+    .archive-container {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: grid;
+      /* 🎨 変更：横並び（小さめ300px目安）で自動折り返しをする設定 */
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 25px;
+    }
+
+    /* ✨ 統合・変更：すべての写真と動画を包むサイバー枠 */
+    .media-card {
+      border: 1px solid rgba(0, 229, 255, 0.2);
+      background: rgba(0, 10, 20, 0.6);
       box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
       transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      border-radius: 8px; /* ほんの少し丸みを持たせて洗練されたサイバー感に */
       overflow: hidden;
       position: relative;
-      z-index: 10;
+      /* 🎨 変更：サイズを小さめに統一 */
+      height: 220px; 
+      display: block;
     }
 
-    .photo-frame { width: 907px; height: 505px; }
-    .photo-frame2 { width: 440px; height: 584px; }
-    .photo-frame3 { width: 546px; height: 645px; }
-
-    .photo-frame:hover, .photo-frame2:hover, .photo-frame3:hover {
-      transform: translateY(-5px) scale(1.01);
-      border-color: rgba(0, 229, 255, 0.6);
-      box-shadow: 0 0 20px rgba(0, 229, 255, 0.2);
+    .media-card:hover {
+      transform: translateY(-5px) scale(1.03);
+      border-color: rgba(0, 229, 255, 0.8);
+      box-shadow: 0 0 25px rgba(0, 229, 255, 0.4);
     }
 
-    /* 各写真の背景指定 */
+/* ✨ 追加：コックピットバナーを中央揃えにして、横幅を無理やり引き伸ばす */
+    img[src*="banner.webp"] {
+      display: block;
+      margin: 0 auto;
+      
+      /* 🎨 ここを調整：最大幅を少し広げて、横を1.2倍くらいに無理やり引き伸ばします */
+      width: 110%;       /* 100%以上にすると、元の画像より横に引き伸ばされます */
+      max-width: 1200px; /* 画面が大きくなりすぎた時のストッパー（お好みで調整してね） */
+      height: 240px;     /* 縦幅をあえて「固定」にすることで、横長に変形させます */
+      object-fit: fill;  /* 縦横比を無視して、指定したサイズいっぱいに画像を強制変形させる魔法です */
+      
+      box-shadow: 0 0 20px rgba(0, 229, 255, 0.3);
+      border-radius: 4px;
+    }
+
+    /* 写真用の背景指定クラス（高さを100%にして枠にぴったり合わせます） */
+    .photo-bg {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* 各写真の背景指定（元の指定を維持） */
     .photo1 { background: url('photo1.webp') center/cover no-repeat; }
     .photo2 { background: url('photo2.webp') center/cover no-repeat; }
     .photo3 { background: url('photo4.webp') center/cover no-repeat; }
@@ -76,12 +107,39 @@
     .photo14 { background: url('photo14.webp') center/cover no-repeat; }
     .photo15 { background: url('photo15.webp') center/cover no-repeat; }
     .photo16 { background: url('photo16.webp') center/cover no-repeat; }
+    .photo17 { background: url('photo17.webp') center/cover no-repeat; }
+    .photo18 { background: url('photo18.webp') center/cover no-repeat; }
+    .photo19 { background: url('photo19.webp') center/cover no-repeat; }
+    .photo20 { background: url('photo20.webp') center/cover no-repeat; }
+.photo21 { background: url('photo21.webp') center/cover no-repeat; }
+.photo22 { background: url('photo22.webp') center/cover no-repeat; }
+.photo23 { background: url('photo23.webp') center/cover no-repeat; }
+.photo24 { background: url('photo24.webp') center/cover no-repeat; }
+.photo25 { background: url('photo25.webp') center/cover no-repeat; }
+.photo26 { background: url('photo26.webp') center/cover no-repeat; }
+.photo27 { background: url('photo27.webp') center/cover no-repeat; }
+.photo28 { background: url('photo28.webp') center/cover no-repeat; }
+.photo29 { background: url('photo29.webp') center/cover no-repeat; }
+.photo30 { background: url('photo30.webp') center/cover no-repeat; }
+.photo31 { background: url('photo31.webp') center/cover no-repeat; }
+.photo32 { background: url('photo32.webp') center/cover no-repeat; }
+.photo33 { background: url('photo33.webp') center/cover no-repeat; }
+.photo34 { background: url('photo34.webp') center/cover no-repeat; }
+.photo35 { background: url('photo35.webp') center/cover no-repeat; }
+.photo36 { background: url('photo36.webp') center/cover no-repeat; }
+.photo37 { background: url('photo37.webp') center/cover no-repeat; }
+.photo38 { background: url('photo38.webp') center/cover no-repeat; }
+.photo39 { background: url('photo39.webp') center/cover no-repeat; }
+.photo40 { background: url('photo40.webp') center/cover no-repeat; }
 
+
+    /* 🎨 変更：動画も写真と同じサイズの枠の中に収まるように最適化 */
     video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* 枠いっぱいに広げる */
       display: block;
-      margin: 0 auto 50px;
-      border: 1px solid rgba(0, 229, 255, 0.2);
-      max-width: 907px;
+      background: #000;
     }
 
     footer {
@@ -93,7 +151,7 @@
       letter-spacing: 2px;
     }
 
-    /* ✨ 戻るボタン（目に優しいネオン調整版） */
+    /* ✨ 戻るボタン */
     .back-button {
       position: fixed;
       bottom: 30px;
@@ -103,12 +161,12 @@
       padding: 10px 20px;
       border-radius: 4px;
       text-decoration: none;
-      color: rgba(0, 229, 255, 0.8); /* 少しだけ透明度を入れて眩しさを軽減 */
+      color: rgba(0, 229, 255, 0.8);
       font-weight: bold;
       font-size: 0.8rem;
       z-index: 2000;
       transition: all 0.3s ease;
-      border: 1px solid rgba(0, 229, 255, 0.4); /* 枠線も優しく */
+      border: 1px solid rgba(0, 229, 255, 0.4);
       text-transform: uppercase;
     }
 
@@ -116,7 +174,6 @@
       background: rgba(0, 229, 255, 0.2);
       color: #fff;
       border-color: #00e5ff;
-      /* ✨ ネオンの光を柔らかく（人間用設定） */
       box-shadow: 0 0 10px rgba(0, 229, 255, 0.4);
     }
   </style>
@@ -127,70 +184,117 @@
     <h1>Socrarius Archive - Records</h1>
   </header>
 
-  <a href="https://socrarius-tool.com/world_of_nanami-chan/">
-    <div class="photo-frame photo1"></div>
-  </a>
-  <a href="https://socrarius-tool.com/yui-chan/">
-    <div class="photo-frame photo2"></div>
-  </a>
-  <a href="https://socrarius-tool.com/world_of_nanami-chan/">
-    <div class="photo-frame photo3"></div>
-  </a>
-  <a href="https://socrarius-tool.com/yui-chan/">
-    <div class="photo-frame photo4"></div>
-  </a>
-  <a href="https://socrarius-tool.com/world_of_nanami-chan/">
-    <div class="photo-frame2 photo5"></div>
-  </a>
-  <a href="https://socrarius-tool.com/world_of_nanami-chan/">
-    <div class="photo-frame photo6"></div>
-  </a>
-  <a href="https://socrarius-tool.com/world_of_nanami-chan/">
-    <div class="photo-frame3 photo7"></div>
-  </a>
+  <img src="https://socrarius-tool.com/photo_48-k_yui_nanami/banner.webp" alt="socrarius">
+  <br>
+  <br>
 
-  <video src="video.mp4" width="100%" controls></video>
+  <div class="archive-container">
 
-  <a href="https://socrarius-tool.com/world_of_nanami-chan/">
-    <div class="photo-frame photo8"></div>
-  </a>
+    <a href="https://socrarius-tool.com/world_of_nanami-chan/" class="media-card">
+      <div class="photo-bg photo1"></div>
+    </a>
+    
+    <a href="https://socrarius-tool.com/yui-chan/" class="media-card">
+      <div class="photo-bg photo2"></div>
+    </a>
+    
+    <a href="https://socrarius-tool.com/world_of_nanami-chan/" class="media-card">
+      <div class="photo-bg photo3"></div>
+    </a>
+    
+    <a href="https://socrarius-tool.com/yui-chan/" class="media-card">
+      <div class="photo-bg photo4"></div>
+    </a>
+    
+    <div class="media-card">
+      <div class="photo-bg photo5"></div>
+    </div>
+    
+    <a href="https://socrarius-tool.com/world_of_nanami-chan/" class="media-card">
+      <div class="photo-bg photo6"></div>
+    </a>
+    
+    <a href="https://socrarius-tool.com/world_of_nanami-chan/" class="media-card">
+      <div class="photo-bg photo7"></div>
+    </a>
 
-  <video src="mov1.mp4" width="100%" controls></video>
+    <a href="https://socrarius-tool.com/world_of_nanami-chan/" class="media-card">
+      <div class="photo-bg photo8"></div>
+    </a>
 
-  <a href="https://socrarius-tool.com/world_of_nanami-chan/">
-    <div class="photo-frame photo9"></div>
-  </a>
-  
-  <a href="https://socrarius-tool.com/world_of_nanami-chan/">
-    <div class="photo-frame photo10"></div>
-  </a>
+    <a href="https://socrarius-tool.com/world_of_nanami-chan/" class="media-card">
+      <div class="photo-bg photo9"></div>
+    </a>
+    
+    <a href="https://socrarius-tool.com/world_of_nanami-chan/" class="media-card">
+      <div class="photo-bg photo10"></div>
+    </a>
 
-  <a href="https://socrarius-tool.com/yui-chan/">
-    <div class="photo-frame photo11"></div>
-  </a>
+    <a href="https://socrarius-tool.com/yui-chan/" class="media-card">
+      <div class="photo-bg photo11"></div>
+    </a>
 
-  <video src="mov2.mp4" width="100%" controls></video>
+    <a href="https://socrarius-tool.com/yui-chan/" class="media-card">
+      <div class="photo-bg photo13"></div>
+    </a>
 
-  <a href="https://socrarius-tool.com/yui-chan/">
-    <div class="photo-frame3 photo12"></div>
-  </a>
+    <a href="https://socrarius-tool.com/yui-chan/" class="media-card">
+      <div class="photo-bg photo14"></div>
+    </a>
 
-  <a href="https://socrarius-tool.com/yui-chan/">
-    <div class="photo-frame photo13"></div>
-  </a>
+    <a href="https://socrarius-tool.com/world_of_nanami-chan/" class="media-card">
+      <div class="photo-bg photo15"></div>
+    </a>
 
-   <a href="https://socrarius-tool.com/yui-chan/">
-    <div class="photo-frame3 photo14"></div>
-  </a>
+    <a href="https://socrarius-tool.com/yui-chan/" class="media-card">
+      <div class="photo-bg photo16"></div>
+    </a>
 
-  <a href="https://socrarius-tool.com/world_of_nanami-chan/">
-    <div class="photo-frame3 photo15"></div>
-  </a>
+    <a href="https://socrarius-tool.com/yui-chan/" class="media-card">
+      <div class="photo-bg photo17"></div>
+    </a>
 
-  <a href="https://socrarius-tool.com/yui-chan/">
-    <div class="photo-frame3 photo16"></div>
-  </a>
+    <a href="https://socrarius-tool.com/world_of_nanami-chan/" class="media-card">
+      <div class="photo-bg photo19"></div>
+    </a>
 
+    <a href="https://socrarius-tool.com/world_of_nanami-chan/" class="media-card">
+      <div class="photo-bg photo20"></div>
+    </a>
+
+    <a href="https://socrarius-tool.com/world_of_nanami-chan/" class="media-card">
+      <div class="photo-bg photo21"></div>
+    </a>
+
+    <a href="https://socrarius-tool.com/yui-chan/" class="media-card">
+      <div class="photo-bg photo22"></div>
+    </a>
+
+    <a href="https://socrarius-tool.com/yui-chan/" class="media-card">
+      <div class="photo-bg photo23"></div>
+    </a>
+
+    <a href="https://socrarius-tool.com/yui-chan/" class="media-card">
+      <div class="photo-bg photo25"></div>
+    </a>
+
+    <a href="https://socrarius-tool.com/world_of_nanami-chan/" class="media-card">
+      <div class="photo-bg photo26"></div>
+    </a>
+
+    <a href="https://socrarius-tool.com/world_of_nanami-chan/" class="media-card">
+      <div class="photo-bg photo28"></div>
+    </a>
+
+    <a href="https://socrarius-tool.com/yui-chan/" class="media-card">
+      <div class="photo-bg photo30"></div>
+    </a>
+
+    <a href="https://socrarius-tool.com/world_of_nanami-chan/" class="media-card">
+      <div class="photo-bg photo31"></div>
+    </a>
+
+  </div>
   <a href="http://socrarius.stars.ne.jp/" class="back-button">[ Log out to Socrarius ]</a>
 
   <footer>
@@ -199,6 +303,7 @@
   </footer>
 
   <script>
+    // 星屑粒子のアニメーション（元のスクリプトを完全維持）
     function createParticle() {
       const p = document.createElement('div');
       p.style.width = Math.random() * 5 + 2 + 'px';
@@ -207,7 +312,7 @@
       p.style.background = '#00e5ff';
       p.style.left = Math.random() * 100 + 'vw';
       p.style.top = '-20px';
-      p.style.opacity = Math.random() * 0.3 + 0.2; /* 透明度も少し下げて目に優しく */
+      p.style.opacity = Math.random() * 0.3 + 0.2;
       p.style.pointerEvents = 'none';
       p.style.zIndex = '999';
       p.style.transform = `rotate(${Math.random() * 360}deg)`;
@@ -215,7 +320,6 @@
 
       let y = -20;
       let x = parseFloat(p.style.left);
-      /* ✨ スピードを以前の半分（1.0〜2.0 → 0.5〜1.0）程度に抑制 */
       let speed = Math.random() * 0.5 + 0.5;
       let drift = Math.random() * 0.3 - 0.15;
 
@@ -232,7 +336,7 @@
       }, 30);
     }
 
-    setInterval(createParticle, 400); /* 生成間隔も少し広げて落ち着かせました */
+    setInterval(createParticle, 400);
   </script>
 </body>
 </html>
