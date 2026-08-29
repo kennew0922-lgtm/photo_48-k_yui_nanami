@@ -75,14 +75,14 @@
       margin: 0 auto;*/
       
       /* 🎨 ここを調整：最大幅を少し広げて、横を1.2倍くらいに無理やり引き伸ばします */
-      /* width: 110%;       100%以上にすると、元の画像より横に引き伸ばされます */
+      /*width: 60%;       100%以上にすると、元の画像より横に引き伸ばされます */
       /*max-width: 1200px;  画面が大きくなりすぎた時のストッパー（お好みで調整してね） */
       /*height: 240px;      縦幅をあえて「固定」にすることで、横長に変形させます */
       /*object-fit: fill;   縦横比を無視して、指定したサイズいっぱいに画像を強制変形させる魔法です */
       
       /*box-shadow: 0 0 20px rgba(0, 229, 255, 0.3);
       border-radius: 4px;
-    }　…………昔の見習い魔導士だった時のアミ先生、なんて無茶を(-_-;)*/
+    }*/　/*…………昔の見習い魔導士だった時のアミ先生、なんて無茶を(-_-;)*/
 
     .secret-link {
         display: inline-block;
@@ -244,16 +244,55 @@
       box-shadow: 0 0 10px rgba(0, 229, 255, 0.4);
     }
 
-    /* 宇宙船バナー専用の完璧な中央固定ラッパー */
+
+
+/* 🔥 コックピットバナー専用箱（ホバー完全無効） */
 .banner-container {
-  display: block;
-  width: 100%;
-  max-width: 100%; /* 親要素の幅いっぱいにフィット */
-  margin: 0 auto;  /* 中央寄せ */
-  padding: 0;      /* パディングゼロ */
-  line-height: 0;  /* 画像下の謎の隙間を完全に消す */
-  text-align: center;
+    display: block;
+    width: 100%;
+    text-align: center;
+    line-height: 0;
 }
+
+.secret-link {
+    display: inline-block;
+    width: 60%;
+    max-width: 1200px;
+    text-decoration: none !important;
+    outline: none !important;
+    border: none !important;
+    background: none !important;
+    transform: none !important;
+    filter: none !important;
+    box-shadow: none !important;
+}
+
+.secret-link img {
+    display: block;
+    width: 100%;
+    height: 240px;
+    object-fit: fill;
+    margin: 0 auto;
+    border-radius: 4px;
+    box-shadow: 0 0 20px rgba(0, 229, 255, 0.3);
+    pointer-events: none; /* 画像自体のホバー反応を殺す */
+}
+
+/* ホバー時も見た目を一切変えない */
+.secret-link:hover,
+.secret-link:active,
+.secret-link:focus,
+.secret-link:hover img,
+.secret-link:active img,
+.secret-link:focus img {
+    text-decoration: none !important;
+    outline: none !important;
+    transform: none !important;
+    filter: none !important;
+    opacity: 1 !important;
+    box-shadow: 0 0 20px rgba(0, 229, 255, 0.3) !important;
+}
+
 
   </style>
 </head>
@@ -263,11 +302,13 @@
     <h1>Socrarius Archive - Records</h1>
   </header>
 
+
 <div class="banner-container">
   <a href="https://socrarius-tool.com/Illustration/" class="secret-link">
     <img src="https://socrarius-tool.com/photo_48-k_yui_nanami/banner.webp" alt="socrarius">
   </a>
 </div>
+
   <br>
   <br>
 
@@ -536,14 +577,6 @@
 
     setInterval(createParticle, 400);
 
-     .hidden-door {
-            cursor: default;
-            display: inline-block;
-            }
-            .sao-movie-content {
-            transition: none !important;
-            pointer-events: auto; 
-            }
   </script>
 </body>
 </html>
