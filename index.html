@@ -75,12 +75,13 @@
       margin: 0 auto;*/
       
       /* 🎨 ここを調整：最大幅を少し広げて、横を1.2倍くらいに無理やり引き伸ばします */
-      /*width: 60%;       100%以上にすると、元の画像より横に引き伸ばされます */
-      /*max-width: 1200px;  画面が大きくなりすぎた時のストッパー（お好みで調整してね） */
-      /*height: 240px;      縦幅をあえて「固定」にすることで、横長に変形させます */
-      /*object-fit: fill;   縦横比を無視して、指定したサイズいっぱいに画像を強制変形させる魔法です */
+      /*width: 60%; */      /*100%以上にすると、元の画像より横に引き伸ばされます */
+      /*max-width: 1200px;*/  /*画面が大きくなりすぎた時のストッパー（お好みで調整してね） */
+      /*height: 240px; */     /*縦幅をあえて「固定」にすることで、横長に変形させます */
+      /*object-fit: fill; */  /*縦横比を無視して、指定したサイズいっぱいに画像を強制変形させる魔法です */
+      /*grid: 20px;
       
-      /*box-shadow: 0 0 20px rgba(0, 229, 255, 0.3);
+      box-shadow: 0 0 20px rgba(0, 229, 255, 0.3);
       border-radius: 4px;
     }*/　/*…………昔の見習い魔導士だった時のアミ先生、なんて無茶を(-_-;)*/
 
@@ -249,15 +250,26 @@
 /* 🔥 コックピットバナー専用箱（ホバー完全無効） */
 .banner-container {
     display: block;
+    grid: 20px;
     width: 100%;
     text-align: center;
     line-height: 0;
+    display: block;
+      margin: 0 auto;
+      
+      /* 🎨 ここを調整：最大幅を少し広げて、横を1.2倍くらいに無理やり引き伸ばします */
+      width: 100%;       /*100%以上にすると、元の画像より横に引き伸ばされます */
+      max-width: 1200px;  /*画面が大きくなりすぎた時のストッパー（お好みで調整してね） */
+      height: 240px;      /*縦幅をあえて「固定」にすることで、横長に変形させます */
+      object-fit: fill;   /*縦横比を無視して、指定したサイズいっぱいに画像を強制変形させる魔法です */
+      grid: 20px;
 }
 
 .secret-link {
     display: inline-block;
     width: 60%;
     max-width: 1200px;
+    grid: 20px;
     text-decoration: none !important;
     outline: none !important;
     border: none !important;
@@ -271,6 +283,7 @@
     display: block;
     width: 100%;
     height: 240px;
+    grid: 20px;
     object-fit: fill;
     margin: 0 auto;
     border-radius: 4px;
@@ -293,6 +306,63 @@
     box-shadow: 0 0 20px rgba(0, 229, 255, 0.3) !important;
 }
 
+/* 🌸 コックピットバナー：ブルーネオン中央揃え */
+.gold-banner {
+    display: block;             /* flexからblockに変更して画像の比率にピッタリ合わせる */
+    width: 100%;
+    max-width: 700px;           /* お好みの横幅（700px）を上限に固定 */
+    margin: 20px auto;
+    padding: 0;                 /* スキマを完全ゼロに */
+    position: relative;
+    background: transparent;    /* 背後の黒スキマをカット */
+    border: 2px solid #00f2fe;  /* 綺麗なサイバーブルー枠 */
+    border-radius: 15px;
+    overflow: hidden;
+    line-height: 0;             /* 画像下の数ピクセルのスキマを物理消去 */
+    transition: all 0.5s ease;
+    animation: blue-pulse 2.5s infinite alternate; /* ブルーの発光アニメーション */
+}
+
+/* 🌸 画像：枠に100%ピッタリフィット */
+.gold-banner img {
+    width: 100%;                /* 160%から100%に修正！ */
+    height: auto;               /* 縦横比を崩さず自然に収める */
+    display: block;
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+/* 🌸 ホバー時の演出（さらに蒼く輝く） */
+.gold-banner:hover {
+    transform: scale(1.02);
+    border-color: #ffffff;
+    box-shadow: 0 0 35px rgba(0, 242, 254, 0.9), 0 0 15px rgba(4, 190, 254, 0.6) !important;
+}
+
+/* 🌸 左上の魔法の刻印（ブルー調に変更） */
+.banner-label {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    color: #00f2fe;             /* 文字色もブルーに統一 */
+    font-family: 'Courier New', monospace;
+    font-size: 18px;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(0, 242, 254, 0.8), 0 0 20px rgba(0, 0, 0, 0.9);
+    z-index: 10;
+    pointer-events: none;
+}
+
+/* 🌸 サイバーブルー パルス発光アニメーション */
+@keyframes blue-pulse {
+    0% { 
+        box-shadow: 0 0 8px #00f2fe, 0 0 15px rgba(0, 242, 254, 0.4); 
+    }
+    100% { 
+        box-shadow: 0 0 22px #00f2fe, 0 0 45px rgba(4, 190, 254, 0.7); 
+    }
+}
 
   </style>
 </head>
@@ -303,8 +373,8 @@
   </header>
 
 
-<div class="banner-container">
-  <a href="https://socrarius-tool.com/Illustration/" class="secret-link">
+<div class="gold-banner">
+  <a href="https://socrarius-tool.com/Illustration/">
     <img src="https://socrarius-tool.com/photo_48-k_yui_nanami/banner.webp" alt="socrarius">
   </a>
 </div>
