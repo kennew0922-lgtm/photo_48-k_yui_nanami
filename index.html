@@ -41,13 +41,32 @@
     /* ✨ 追加：横並び＆自動折り返しをするための全体コンテナ */
     .archive-container {
       max-width: 1300px;
-      margin: 0 auto;
-      padding: 0 2rem;
+      margin: 30px auto;
+      /* 🎨 縦（上下）に 2.5rem の余白を追加！横は 2rem 🎨 */
+  padding: 2rem 2rem;
       display: grid;
       /* 🎨 変更：横並び（小さめ300px目安）で自動折り返しをする設定 */
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: 25px;
-    }
+    
+    /* 🎨 ここから追加・変更した装飾魔法 🎨 */
+  background: rgba(4, 12, 24, 0.65);  /* コックピットに合わせたほんのり透けるダークブルー背景 */
+  border: 1px solid rgba(0, 242, 254, 0.4); /* サイバーブルーの繊細なフレーム枠 */
+  border-radius: 16px;                 /* 角にほんのり丸み */
+  box-shadow: 
+    inset 0 0 25px rgba(0, 242, 254, 0.15), /* 内側にふわっと広がる青い光 */
+    0 0 20px rgba(0, 5, 15, 0.8);          /* 外側の重厚なシャドウ */
+  backdrop-filter: blur(8px);          /* 背後を少しぼかすサイバーグラス魔法 */
+  transition: all 0.5s ease;
+}
+
+/* 🎨 全体コンテナのホバー演出（外枠が静かに青く輝く） */
+.archive-container:hover {
+  border-color: rgba(0, 242, 254, 0.8);
+  box-shadow: 
+    inset 0 0 35px rgba(0, 242, 254, 0.25),
+    0 0 30px rgba(0, 242, 254, 0.3);
+}
 
     /* ✨ 統合・変更：すべての写真と動画を包むサイバー枠 */
     .media-card {
@@ -321,6 +340,7 @@
     line-height: 0;             /* 画像下の数ピクセルのスキマを物理消去 */
     transition: all 0.5s ease;
     animation: blue-pulse 2.5s infinite alternate; /* ブルーの発光アニメーション */
+    margin-bottom: -20px;
 }
 
 /* 🌸 画像：枠に100%ピッタリフィット */
