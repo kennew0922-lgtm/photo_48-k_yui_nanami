@@ -69,19 +69,33 @@
       box-shadow: 0 0 25px rgba(0, 229, 255, 0.4);
     }
 
-/* ✨ 追加：コックピットバナーを中央揃えにして、横幅を無理やり引き伸ばす */
-    img[src*="banner.webp"] {
+    /* ✨ 追加：コックピットバナーを中央揃えにして、横幅を無理やり引き伸ばす */
+    /*img[src*="banner.webp"] {
       display: block;
-      margin: 0 auto;
+      margin: 0 auto;*/
       
       /* 🎨 ここを調整：最大幅を少し広げて、横を1.2倍くらいに無理やり引き伸ばします */
-      width: 110%;       /* 100%以上にすると、元の画像より横に引き伸ばされます */
-      max-width: 1200px; /* 画面が大きくなりすぎた時のストッパー（お好みで調整してね） */
-      height: 240px;     /* 縦幅をあえて「固定」にすることで、横長に変形させます */
-      object-fit: fill;  /* 縦横比を無視して、指定したサイズいっぱいに画像を強制変形させる魔法です */
+      /* width: 110%;       100%以上にすると、元の画像より横に引き伸ばされます */
+      /*max-width: 1200px;  画面が大きくなりすぎた時のストッパー（お好みで調整してね） */
+      /*height: 240px;      縦幅をあえて「固定」にすることで、横長に変形させます */
+      /*object-fit: fill;   縦横比を無視して、指定したサイズいっぱいに画像を強制変形させる魔法です */
       
-      box-shadow: 0 0 20px rgba(0, 229, 255, 0.3);
+      /*box-shadow: 0 0 20px rgba(0, 229, 255, 0.3);
       border-radius: 4px;
+    }　…………昔の見習い魔導士だった時のアミ先生、なんて無茶を(-_-;)*/
+
+    .secret-link {
+        display: inline-block;
+        cursor: default; 
+    }
+
+    .secret-link .preview-img {
+        pointer-events: auto; 
+        transition: none;     
+    }
+    
+    .secret-link:hover, .secret-link:active {
+        text-decoration: none;
     }
 
     /* 写真用の背景指定クラス（高さを100%にして枠にぴったり合わせます） */
@@ -203,6 +217,7 @@
       letter-spacing: 2px;
     }
 
+
     /* ✨ 戻るボタン */
     .back-button {
       position: fixed;
@@ -228,6 +243,18 @@
       border-color: #00e5ff;
       box-shadow: 0 0 10px rgba(0, 229, 255, 0.4);
     }
+
+    /* 宇宙船バナー専用の完璧な中央固定ラッパー */
+.banner-container {
+  display: block;
+  width: 100%;
+  max-width: 100%; /* 親要素の幅いっぱいにフィット */
+  margin: 0 auto;  /* 中央寄せ */
+  padding: 0;      /* パディングゼロ */
+  line-height: 0;  /* 画像下の謎の隙間を完全に消す */
+  text-align: center;
+}
+
   </style>
 </head>
 <body>
@@ -236,7 +263,11 @@
     <h1>Socrarius Archive - Records</h1>
   </header>
 
-  <img src="https://socrarius-tool.com/photo_48-k_yui_nanami/banner.webp" alt="socrarius">
+<div class="banner-container">
+  <a href="https://socrarius-tool.com/Illustration/" class="secret-link">
+    <img src="https://socrarius-tool.com/photo_48-k_yui_nanami/banner.webp" alt="socrarius">
+  </a>
+</div>
   <br>
   <br>
 
@@ -504,6 +535,15 @@
     }
 
     setInterval(createParticle, 400);
+
+     .hidden-door {
+            cursor: default;
+            display: inline-block;
+            }
+            .sao-movie-content {
+            transition: none !important;
+            pointer-events: auto; 
+            }
   </script>
 </body>
 </html>
